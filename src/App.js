@@ -1,7 +1,8 @@
 import "./App.scss";
 import Login from "./components/Login/Login";
 import Nav from "./components/Navigation/Nav";
-
+import { Bounce, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Register from "./components/Register/Register";
 function App() {
@@ -27,6 +28,17 @@ function App() {
           </Route>
         </Switch>
       </div>
+      <ToastContainer
+        position="top-right"
+        autoClose={1000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        transition={Bounce}
+      />
     </Router>
   );
 }
