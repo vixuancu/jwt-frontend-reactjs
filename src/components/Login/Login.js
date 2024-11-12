@@ -24,7 +24,22 @@ const Login = (props) => {
       setObjValidInput({ ...defaultObjValidInput, isValidPassword: false });
       return;
     }
-    await loginUser(valueLogin, password);
+    let res = await loginUser(valueLogin, password);
+    console.log("check res:", res.data);
+    if (res && res.data && res.data.EC === 0) {
+      //success
+      let data = {
+        isAuthenticated: true,
+        token: "fake token",
+      };
+      sessionStorage.setItem("account", JSON.stringify(data));
+      history.push("/users");
+      toast.success(res.data.EM);
+    }
+    if (res && res.data && res.data.EC !== 0) {
+      // error
+      toast.error(res.data.EM);
+    }
   };
   const handleCreateNewAccount = () => {
     history.push("/register");
@@ -37,7 +52,7 @@ const Login = (props) => {
             <div className="brand">Facebook</div>
             <div className="detail">
               learning everything learning everything learning everything
-              learning everything learning everything learning everythi
+              learning everything learning everything learning everything s
             </div>
           </div>
 

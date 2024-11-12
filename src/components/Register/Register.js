@@ -88,7 +88,7 @@ const Register = (props) => {
             <div className="brand">Facebook</div>
             <div className="detail">
               learning everything learning everything learning everything
-              learning everything learning vixuancu vixuancu
+              learning everything learning vixuancu vixuan
             </div>
           </div>
 
