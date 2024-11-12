@@ -1,9 +1,16 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./Login.scss";
 import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import { loginUser } from "../../services/UserService";
 const Login = (props) => {
+  useEffect(() => {
+    let session = sessionStorage.getItem("account");
+    if (session) {
+      history.push("/");
+      window.location.reload();
+    }
+  }, []);
   let history = useHistory();
   const [valueLogin, setValueLogin] = useState("");
   const [password, setPassword] = useState("");
@@ -34,6 +41,7 @@ const Login = (props) => {
       };
       sessionStorage.setItem("account", JSON.stringify(data));
       history.push("/users");
+      window.location.reload(); // phải sau khi push load tại Login
       toast.success(res.data.EM);
     }
     if (res && res.data && res.data.EC !== 0) {
@@ -44,6 +52,12 @@ const Login = (props) => {
   const handleCreateNewAccount = () => {
     history.push("/register");
   };
+  const handlePressEnter = (event) => {
+    if (event.key === "Enter") {
+      handleLogin();
+    }
+  };
+
   return (
     <div className="login-container ">
       <div className="container">
@@ -83,6 +97,7 @@ const Login = (props) => {
               onChange={(event) => {
                 setPassword(event.target.value);
               }}
+              onKeyDown={(event) => handlePressEnter(event)}
             />
             <button className="btn btn-primary" onClick={() => handleLogin()}>
               Login
