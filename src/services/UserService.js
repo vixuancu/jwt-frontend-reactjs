@@ -13,4 +13,9 @@ const loginUser = (valueLogin, password) => {
     password,
   });
 };
-export { registerNewUser, loginUser };
+const fetAllUser = (page, limit) => {
+  return axios.get(
+    `http://localhost:8080/api/v1/user/read?page=${page}&limit=${limit}`
+  );
+};
+export { registerNewUser, loginUser, fetAllUser };
