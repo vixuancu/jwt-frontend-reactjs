@@ -1,6 +1,10 @@
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { fetchGroup, createNewUser } from "../../services/UserService";
+import {
+  fetchGroup,
+  createNewUser,
+  updateCurrentUser,
+} from "../../services/UserService";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import _ from "lodash";
@@ -70,6 +74,7 @@ const ModalUser = (props) => {
   };
   const [validInputs, setValidInputs] = useState(validInputsDefault);
   const checkValidateInputs = () => {
+    if (props.action === "UPDATE") return true;
     // create user
     setValidInputs(validInputsDefault);
     let arr = ["email", "phone", "password", "group"];
@@ -90,14 +95,24 @@ const ModalUser = (props) => {
     // create user
     let check = checkValidateInputs();
     if (check) {
-      let res = await createNewUser({
-        ...userData,
-        groupId: userData["group"], // chèn thêm groupId để giống backend or sửa data từ group => groupId
-      });
+      let res =
+        props.action === "CREATE"
+          ? await createNewUser({
+              ...userData,
+              groupId: userData["group"], // chèn thêm groupId để giống backend or sửa data từ group => groupId
+            })
+          : await updateCurrentUser({
+              ...userData,
+              groupId: userData["group"],
+            });
+
       // console.log('check res:',res)
       if (res.data && res.data.EC === 0) {
         props.onHide();
-        setUserData({ ...dafaultUserData, group: userGroup[0].id });
+        setUserData({
+          ...dafaultUserData,
+          group: userGroup && userGroup.length > 0 ? userGroup[0].id : "",
+        });
       }
       if (res.data && res.data.EC !== 0) {
         let _validInputs = _.cloneDeep(validInputsDefault);

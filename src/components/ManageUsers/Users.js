@@ -57,16 +57,27 @@ const Users = (props) => {
       toast.error(res.data.EM);
     }
   };
+  const handleRefresh = async () => {
+    await fetchUsers();
+  };
   return (
     <>
       <div className="container">
         <div className="manage-users-container">
           <div className="user-header">
-            <div className="title">
-              <h3>Table users</h3>
+            <div className="title mt-3">
+              <h3>Manage users</h3>
             </div>
-            <div className="actions">
-              <button className="btn-success  btn">Refresh</button>
+            <div className="actions my-3">
+              <button
+                className="btn-success  btn"
+                onClick={() => {
+                  handleRefresh();
+                }}
+              >
+                Refresh
+                <i className="fa fa-refresh"></i>
+              </button>
               <button
                 className="btn btn-primary"
                 onClick={() => {
@@ -74,7 +85,7 @@ const Users = (props) => {
                   setActionModalUser("CREATE");
                 }}
               >
-                Add new user
+                Add new user <i className="fa fa-plus-circle"></i>
               </button>
             </div>
           </div>
@@ -104,16 +115,18 @@ const Users = (props) => {
                           <td>{item.Group ? item.Group.name : ""}</td>
                           <td>
                             <button
+                              title="Edit"
                               className="btn btn-warning"
                               onClick={() => handleEditUser(item)}
                             >
-                              Edit
+                              Edit <i class="fa fa-pencil"></i>
                             </button>
                             <button
-                              className="btn btn-danger ms-3"
+                              title="Delete"
+                              className="btn btn-danger ms-2"
                               onClick={() => handleDeleteUser(item)}
                             >
-                              Delete
+                              Delete <i class="fa fa-trash"></i>
                             </button>
                           </td>
                         </tr>

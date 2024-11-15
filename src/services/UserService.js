@@ -31,6 +31,11 @@ const createNewUser = (userData) => {
     ...userData,
   });
 };
+const updateCurrentUser = (userData) => {
+  return axios.put(`http://localhost:8080/api/v1/user/update`, {
+    ...userData,
+  });
+};
 export {
   registerNewUser,
   loginUser,
@@ -38,4 +43,5 @@ export {
   deleteUser,
   fetchGroup,
   createNewUser,
+  updateCurrentUser,
 };
