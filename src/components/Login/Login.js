@@ -33,7 +33,7 @@ const Login = (props) => {
     }
     let res = await loginUser(valueLogin, password);
     console.log("check res:", res.data);
-    if (res && res.data && res.data.EC === 0) {
+    if (res && res.EC === 0) {
       //success
       let data = {
         isAuthenticated: true,
@@ -42,11 +42,11 @@ const Login = (props) => {
       sessionStorage.setItem("account", JSON.stringify(data));
       history.push("/users");
       window.location.reload(); // phải sau khi push load tại Login
-      toast.success(res.data.EM);
+      toast.success(res.EM);
     }
-    if (res && res.data && res.data.EC !== 0) {
+    if (res && res.EC !== 0) {
       // error
-      toast.error(res.data.EM);
+      toast.error(res.EM);
     }
   };
   const handleCreateNewAccount = () => {
