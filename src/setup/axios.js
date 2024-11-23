@@ -32,7 +32,7 @@ instance.interceptors.response.use(
     // Any status codes that falls outside the range of 2xx cause this function to trigger
     // Do something with response error
     const status = (err && err.response && err.response.status) || 500;
-    console.log("err.response", err.response);
+
     // we can handle global errors here
     switch (status) {
       // authentication (token related issues)

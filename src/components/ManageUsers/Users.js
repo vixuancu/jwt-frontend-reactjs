@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { fetAllUser, deleteUser } from "../../services/UserService";
 import ReactPaginate from "react-paginate";
 import { toast } from "react-toastify";
@@ -18,6 +18,7 @@ const Users = (props) => {
   useEffect(() => {
     fetchUsers();
   }, [currentPage]);
+
   const fetchUsers = async () => {
     let res = await fetAllUser(currentPage, currentLimit);
     if (res && res.EC === 0) {
@@ -119,14 +120,14 @@ const Users = (props) => {
                               className="btn btn-warning"
                               onClick={() => handleEditUser(item)}
                             >
-                              Edit <i class="fa fa-pencil"></i>
+                              Edit <i className="fa fa-pencil"></i>
                             </button>
                             <button
                               title="Delete"
                               className="btn btn-danger ms-2"
                               onClick={() => handleDeleteUser(item)}
                             >
-                              Delete <i class="fa fa-trash"></i>
+                              Delete <i className="fa fa-trash"></i>
                             </button>
                           </td>
                         </tr>

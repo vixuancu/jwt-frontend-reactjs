@@ -1,9 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import "./Login.scss";
 import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import { loginUser } from "../../services/UserService";
+import { UserContext } from "../../context/UserContext";
 const Login = (props) => {
+  const { loginContext } = useContext(UserContext);
   useEffect(() => {
     let session = sessionStorage.getItem("account");
     if (session) {
@@ -35,11 +37,17 @@ const Login = (props) => {
     console.log("check res:", res.data);
     if (res && res.EC === 0) {
       //success
+      let groupWithRoles = res.DT.groupWithRoles;
+      let email = res.DT.email;
+      let username = res.DT.username;
+      let token = res.DT.access_token;
       let data = {
         isAuthenticated: true,
-        token: "fake token",
+        token: token,
+        account: { groupWithRoles, email, username },
       };
       sessionStorage.setItem("account", JSON.stringify(data));
+      loginContext(data);
       history.push("/users");
       window.location.reload(); // phải sau khi push load tại Login
       toast.success(res.EM);
