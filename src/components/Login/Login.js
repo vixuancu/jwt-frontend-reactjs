@@ -6,13 +6,7 @@ import { loginUser } from "../../services/UserService";
 import { UserContext } from "../../context/UserContext";
 const Login = (props) => {
   const { loginContext } = useContext(UserContext);
-  useEffect(() => {
-    let session = sessionStorage.getItem("account");
-    if (session) {
-      history.push("/");
-      window.location.reload();
-    }
-  }, []);
+
   let history = useHistory();
   const [valueLogin, setValueLogin] = useState("");
   const [password, setPassword] = useState("");
@@ -46,10 +40,9 @@ const Login = (props) => {
         token: token,
         account: { groupWithRoles, email, username },
       };
-      sessionStorage.setItem("account", JSON.stringify(data));
       loginContext(data);
       history.push("/users");
-      window.location.reload(); // phải sau khi push load tại Login
+
       toast.success(res.EM);
     }
     if (res && res.EC !== 0) {
