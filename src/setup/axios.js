@@ -46,7 +46,7 @@ instance.interceptors.response.use(
       // forbidden (permission related issues)
       case 403: {
         toast.error(`You don't permission to access this resource...`);
-        return Promise.reject(err);
+        return err.response.data;
         //return err.response.data.DT  dùng promise.reject phải có try catch ở phần call API ko lỗi báo màn hình
       }
 

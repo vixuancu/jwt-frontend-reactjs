@@ -48,6 +48,9 @@ const NavHeader = (props) => {
                 <NavLink to="/users" className="nav-link">
                   users
                 </NavLink>
+                <NavLink to="/roles" className="nav-link">
+                  Roles
+                </NavLink>
                 <NavLink to="/projects" className="nav-link">
                   projects
                 </NavLink>
