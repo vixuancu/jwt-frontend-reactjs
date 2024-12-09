@@ -57,7 +57,7 @@ instance.interceptors.response.use(
 
       // not found
       case 404: {
-        return Promise.reject(err);
+        return err.response.data;
       }
 
       // conflict
