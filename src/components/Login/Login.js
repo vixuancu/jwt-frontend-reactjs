@@ -1,11 +1,11 @@
 import { useEffect, useState, useContext } from "react";
 import "./Login.scss";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { loginUser } from "../../services/UserService";
 import { UserContext } from "../../context/UserContext";
 const Login = (props) => {
-  const { loginContext } = useContext(UserContext);
+  const { user, loginContext } = useContext(UserContext);
 
   let history = useHistory();
   const [valueLogin, setValueLogin] = useState("");
@@ -59,13 +59,21 @@ const Login = (props) => {
       handleLogin();
     }
   };
-
+  useEffect(() => {
+    if (user && user.isAuthenticated) {
+      history.push("/");
+    }
+  }, []);
   return (
     <div className="login-container ">
       <div className="container">
         <div className="row px-3 p-sm-0 ">
           <div className="content-left col-12 d-none col-sm-7 d-sm-block ">
-            <div className="brand">Facebook</div>
+            <div className="brand">
+              <Link to="/">
+                <span title="return to HomePage">Facebook</span>
+              </Link>
+            </div>
             <div className="detail">
               learning everything learning everything learning everything
               learning everything learning everything learning everything s

@@ -5,6 +5,8 @@ import Login from "../components/Login/Login";
 import PrivateRoutes from "./PrivateRoutes";
 import Role from "../components/Role/Role";
 import GroupRole from "../components/GroupRole/GroupRole";
+//import Home from "../components/Home/Home" khong lam
+//import About from "../components/About/About" khong lam
 const AppRoutes = (props) => {
   /*
     [/users/show,/users/update]
